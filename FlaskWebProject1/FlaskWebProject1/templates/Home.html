@@ -1,0 +1,62 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-offset-0">
+        <div class="col-md-18">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Last Payments
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <form method="post" class="form-inline" action="/home">
+                            Name: &nbsp;&nbsp; <input type="text" name="Name" list="Names">
+                            <datalist id="Names">
+                                {% for key in all_excel_data.keys() %}
+                                <option value="{{ key }}">{{ key }}</option>
+                                {% endfor %}
+                            </datalist>
+                            <input type="submit" value="search" />
+                        </form>
+                    </div>
+                    <br />
+                    <br />
+
+                    <form action="/home" method="post">
+
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Payment Type</th>
+                            <th>Amount Payed</th>
+                            <th>Hours</th>
+                            <th>Debt</th>
+                            <th>Receipt</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
+                        </tr>
+                       
+                        {% for key in payment_data.keys() %}
+                        <tr>
+                                <td> {{ key }}</td>
+
+                                {% for item in payment_data[key] %}
+                                <td>{{ item }}</td>
+                                {% endfor %}
+                                
+                            <td><a href="/edit?name={{ key }}"><img src="{{ url_for('static', filename='img/edit-icon.png')}}" heigth="30" width="30" /></a></td>
+                            <td><a href="/delete?name= {{ key }}"><img src="{{ url_for('static', filename='img/delete-icon.png')}}" heigth="30" width="30"/></a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    </form>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
