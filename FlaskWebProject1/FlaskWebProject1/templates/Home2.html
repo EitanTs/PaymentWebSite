@@ -1,0 +1,93 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+{% if reload %}
+<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+</script>
+{% endif %}
+<div class="container">
+    <div class="col-md-offset-0">
+        <div class="col-md-18">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Last Payments
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <form method="post" class="form-inline" action="/home">
+                            Name: &nbsp;&nbsp; <input type="text" name="Name" list="Names" autocomplete="off">
+                            <datalist id="Names">
+                                {% for i in range(1, payment_data|length) %}
+
+                                <option value="{{ payment_data[i]['Name'] }}">{{ payment_data[i]['Name'] }}</option>
+                                {% endfor %}
+                            </datalist>
+                            <input type="submit" value="search" />
+                        </form>
+                    </div>
+                    <br />
+                    <br />
+
+                    <form action="/home" method="post">
+
+                    <table class="table" dir="ltr">
+                        <tr>
+                            {% for key in payment_keys %}
+                            <th>{{key}}</th>
+                            {% endfor %}
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+
+                        {% for i in range(1, payment_data|length) %}
+                        <tr>
+                              
+                                <td> {{ payment_data[i]["Name"] }}</td>
+                            <td> {{ payment_data[i]["Date"] }}</td>
+                            <td> {{ payment_data[i]["PaymentType"] }}</td>
+                            <td> {{ payment_data[i]["AmountPayed"] }}</td>
+                            <td> {{ payment_data[i]["Hours"] }}</td>
+                            <td> {{ payment_data[i]["Debt"] }}</td>
+                            <td> {{ payment_data[i]["Receipt"] }}</td>
+
+
+                             
+
+                            <td><a href="/edit?name={{payment_data[i]['Name']}}"><img src="{{ url_for('static', filename='img/edit-icon.png')}}" heigth="30" width="30" /></a></td>
+                            <td><a href="/delete?name={{payment_data[i]['Name']}}"><img src="{{ url_for('static', filename='img/delete-icon.png')}}" heigth="30" width="30" /></a></td>
+                        </tr>
+                      {% endfor %}
+
+
+                    <tr><td></td><td></td><td></td><td><a href="/AddPayment"><img src="{{ url_for('static', filename='img/plus-icon.png')}}" heigth="50" width="50" /></a></td>
+                        <td></td><td></td><td></td><td></td><td></td></tr>
+                    </table>
+                    </form>
+
+                    <br />
+                    <br />
+
+
+
+                    {% endblock %}
+
+
+                </div>
+            </div>
+        </div>
+     </div>
+</div>

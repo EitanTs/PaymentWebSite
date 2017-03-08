@@ -52,9 +52,20 @@
                             <td><a href="/delete?name= {{ key }}"><img src="{{ url_for('static', filename='img/delete-icon.png')}}" heigth="30" width="30"/></a></td>
                         </tr>
                         {% endfor %}
+                    
+                        
+                    <tr><td></td><td></td><td></td><td><a href="/AddPayment"><img src="{{ url_for('static', filename='img/plus-icon.png')}}" heigth="50" width="50" /></a></td></tr>
                     </table>
                     </form>
+                    
+                    <br />
+                    <br />
+                    
+                    
+                    
                     {% endblock %}
+
+                    
                 </div>
             </div>
         </div>

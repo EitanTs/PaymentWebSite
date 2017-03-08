@@ -1,0 +1,90 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-md-offset-0">
+        <div class="col-md-18">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Last Payments
+                </div>
+                <div class="panel-body">
+                    <form action="/AddPayment" method="post">
+                        <div class="form-group">
+                            <label for="Name">Name:</label>
+                            <input type="text" class="form-control" id="Name" name="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="Date">Date:</label>
+                            <select name="Day">
+                                {% for i in range(1,32) %}
+                                    {%if i == day %}
+                                <option value="{{i}}" selected>{{i}}</option>
+                                    {% else %}
+                                <option value="{{i}}">{{i}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select name="Month">
+                                {% for i in range(1,13) %}
+
+                                {%if i == month %}
+                                <option value="{{i}}" selected>{{i}}</option>
+                                {% else %}
+                                
+                                <option value="{{i}}">{{i}}</option>
+                                
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                            <select name="Year">
+                                {% for i in range(2016, 2020) %}
+                                
+                                {%if i == year %}
+                                <option value="{{i}}" selected>{{i}}</option>
+                                {% else %}
+
+                                <option value="{{i}}">{{i}}</option>
+
+                                {% endif %}
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="PaymentType">Payment Type:</label>
+                            <select id="PaymentType" name="PaymentType">
+                                <option value="Cash">Cash</option>
+                                <option value="Check">Check</option>
+                                <option value="Bank Transfer">Bank Transfer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="AmountPayed">Amount Payed:</label>
+                            <input type="text" class="form-control" id="AmountPayed" name="AmountPayed">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Hours">Hours:</label>
+                            <input type="text" class="form-control" id="Hours" name="Hours">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Debt">Debt:</label>
+                            <input type="text" class="form-control" id="Debt" name="Debt">
+                        </div>
+
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="Receipt" id="Receipt"> Receipt</label>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
