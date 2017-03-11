@@ -50,7 +50,9 @@
     <Folder Include="FlaskWebProject1\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FlaskWebProject1\static\scripts\ValidateInput.js" />
     <Content Include="FlaskWebProject1\templates\AddPayment.html" />
+    <Content Include="FlaskWebProject1\templates\EditPayment.html" />
     <Content Include="FlaskWebProject1\templates\Home.html" />
     <Content Include="FlaskWebProject1\templates\Home2.html" />
     <Content Include="requirements.txt" />

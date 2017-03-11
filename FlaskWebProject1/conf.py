@@ -6,3 +6,5 @@ EXCEL_PATH = r"C:\Developing\FlaskWebProject1\FlaskWebProject1\student_payments.
 JSON_PATH = r"C:\Developing\FlaskWebProject1\FlaskWebProject1\students_payments.json"
 
 IMAGE_FODER = r"C:\Developing\FlaskWebProject1\FlaskWebProject1\img"
+
+LESSON_COST = 140

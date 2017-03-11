@@ -105,14 +105,17 @@ def add_payment():
     day = date.day
     month = date.month
     year = date.year
+
     if request.method == 'POST':
         JsonLoader.add_payment(request.form)
         json_data = JsonLoader.get_json_data()
+
         return render_template('Home2.html',
                     payment_data = json_data,
                     all_json_data = json_data,
                     payment_keys = json_data[0]["Keys"]
                     )
+
     return render_template('AddPayment.html',
                            year=year,
                            month=month,
@@ -121,6 +124,9 @@ def add_payment():
 
 @app.route('/edit/', methods=["GET"])
 def edit():
+    
+    json_data = JsonLoader.get_json_data()
+
     date = datetime.today()
     day = date.day
     month = date.month
@@ -135,14 +141,28 @@ def edit():
                         day=day
 
                         )
-    else:
-        json_data = JsonLoader.get_json_data()
+    json_data = JsonLoader.get_json_data()
 
     return render_template('Home2.html',
                     payment_data = json_data,
                     all_json_data = json_data,
                     payment_keys = json_data[0]["Keys"],
                     reload=True
+                    )
+
+@app.route('/edit_details', methods=["POST"])
+def edit_details():
+    
+    if request.method == "POST":
+        JsonLoader.edit_user(request.form)
+        print 1
+        
+    
+    json_data = JsonLoader.get_json_data()
+    return render_template('Home2.html',
+                    payment_data = json_data,
+                    all_json_data = json_data,
+                    payment_keys = json_data[0]["Keys"],  
                     )
 
 @app.route('/delete/', methods=["GET"])

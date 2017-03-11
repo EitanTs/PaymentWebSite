@@ -8,6 +8,8 @@ RECEIPT_KEY = "Receipt"
 
 NOT_USEFUL_KEYS = [RECEIPT_KEY, "Day", "Month", "Year"]
 
+EDITING_KEYS = ["AmountPayed", "Hours"]
+
 def create_empty_json(json_path):
     data_list = [{"Keys" : KEYS}]
     with open(json_path, mode='wb') as json_file:
@@ -88,3 +90,56 @@ def delete_user(name):
     for i in range(1, len(json_data)):
         if name == json_data[i]["Name"]:
             change_data_to_json_file(json_data[i], conf.JSON_PATH, delete_flag=True)
+
+def add_value_to_exist_data(json_data, request, key):
+    return str(int(json_data[key]) + int(request[key]))
+
+def add_to_exist_data(request):
+    json_data = get_json_data(Name=request["Name"])[1]
+    json_data["Date"] = join_parts_to_date(request["Day"], request["Month"], request["Year"])
+    json_data["Receipt"] = request["Receipt"]
+    json_data["PaymentType"] = request["PaymentType"]
+    json_data["Debt"] = request["Debt"]
+
+    for key in EDITING_KEYS:
+        json_data[key] = add_value_to_exist_data(json_data, request, key)
+    delete_user(request["Name"])
+    change_data_to_json_file(json_data, conf.JSON_PATH)
+    
+def convert_immmutable_dict_to_dict(request):
+    dict = {}
+    for key in request.keys():
+        dict[key] = request[key]
+    return dict
+
+def clear_and_update_data(request):
+    
+    request["Date"] = join_parts_to_date(request["Day"], request["Month"], request["Year"])
+    request.pop("Day")
+    request.pop("Month")
+    request.pop("Year")
+    delete_user(request["Name"])
+    change_data_to_json_file(request, conf.JSON_PATH)
+
+def calc_debt(request):
+    json_data = get_json_data(Name=request["Name"])[1]
+    old_debt = float(json_data["Debt"])
+    new_debt = float(request["AmountPayed"]) - conf.LESSON_COST * float(request["Hours"])
+    return int(old_debt + new_debt)
+
+def edit_user(request):
+    request = convert_immmutable_dict_to_dict(request)
+    if not "Receipt" in request.keys():
+        request["Receipt"] = "off"
+    print request
+    request["Debt"] = calc_debt(request)
+    if is_receipt(request["Name"]):
+        clear_and_update_data(request)
+    else:
+        add_to_exist_data(request)
+
+def is_receipt(name):
+    json_data = get_json_data(Name=name)[1]
+    return json_data["Receipt"] == "on"
+
+

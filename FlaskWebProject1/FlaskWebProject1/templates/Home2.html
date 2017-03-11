@@ -62,7 +62,11 @@
                             <td> {{ payment_data[i]["AmountPayed"] }}</td>
                             <td> {{ payment_data[i]["Hours"] }}</td>
                             <td> {{ payment_data[i]["Debt"] }}</td>
-                            <td> {{ payment_data[i]["Receipt"] }}</td>
+                            {% if payment_data[i]["Receipt"] == "on"%}
+                                <td>V</td>
+                            {% else %}
+                                <td>X</td>
+                            {% endif %}
 
 
                              
