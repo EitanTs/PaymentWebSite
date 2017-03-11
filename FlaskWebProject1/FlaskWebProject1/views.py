@@ -107,6 +107,14 @@ def add_payment():
     year = date.year
 
     if request.method == 'POST':
+        if JsonLoader.is_user_exist(request.form["Name"]):
+            json_data = JsonLoader.get_json_data()
+            return render_template('Home2.html',
+                    payment_data = json_data,
+                    all_json_data = json_data,
+                    payment_keys = json_data[0]["Keys"],
+                    error_message = True
+                    )
         JsonLoader.add_payment(request.form)
         json_data = JsonLoader.get_json_data()
 

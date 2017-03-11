@@ -15,7 +15,8 @@ def create_empty_json(json_path):
     with open(json_path, mode='wb') as json_file:
         json_file.write(json.dumps(data_list))
 
-
+def is_user_exist(name):
+    return len(get_json_data(Name=name)) > 1
 
 def change_data_to_json_file(new_data, json_path, delete_flag=False):
     with open(json_path, mode='r') as json_file:
