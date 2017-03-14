@@ -143,4 +143,8 @@ def is_receipt(name):
     json_data = get_json_data(Name=name)[1]
     return json_data["Receipt"] == "on"
 
-
+def send_receipt(name):
+    json_data = get_json_data(Name=name)[1]
+    json_data["Receipt"] = "on"
+    delete_user(name)
+    change_data_to_json_file(json_data, conf.JSON_PATH)

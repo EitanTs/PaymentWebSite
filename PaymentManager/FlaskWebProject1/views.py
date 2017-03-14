@@ -14,7 +14,6 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 LIST_OF_COLS = ["Name", "Date", "Payment Type", "Amount Payed", "Hours", "Debt", "Receipt"]
 
-
 @app.route('/')
 def index():
     """Renders the home page."""
@@ -26,6 +25,7 @@ def index():
         year=datetime.now().year,
         error_message=''
     )
+
 
 @app.route('/home', methods=['GET','POST'])
 def home():
@@ -149,4 +149,14 @@ def delete():
                     payment_keys = json_data[0]["Keys"],
                     reload=True
                     )
-   
+  
+@app.route('/send_receipt/', methods=["GET"])
+def send_receipt():
+    if len(request.args.get('name')):
+        JsonLoader.send_receipt(request.args.get('name'))
+    json_data = JsonLoader.get_json_data()
+    return render_template('Home2.html',
+                    payment_data = json_data,
+                    all_json_data = json_data,
+                    payment_keys = json_data[0]["Keys"],
+                    )

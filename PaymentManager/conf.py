@@ -1,6 +1,7 @@
 USER_NAME = 'user'
 PASSWORD = 'user'
 
+EXCEL_PATH = r"C:\PaymentManager\student_payments.xlsx"
 
 JSON_PATH = r"C:\PaymentManager\students_payments.json"
 
