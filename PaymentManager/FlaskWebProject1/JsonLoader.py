@@ -1,6 +1,7 @@
 import json
 import conf
 import os
+import excel
 
 KEYS = ["Name", "Date", "Payment Type", "Amount Payed", "Hours", "Debt", "Receipt"]
 
@@ -84,6 +85,7 @@ def add_payment(request):
     date = join_parts_to_date(request["Day"], request["Month"], request["Year"])
     payment_dict = create_payment_dict(request)
     payment_dict["Date"] = date
+    excel.write_data_to_csv(payment_dict)
     change_data_to_json_file(payment_dict, conf.JSON_PATH)
 
 def delete_user(name):
