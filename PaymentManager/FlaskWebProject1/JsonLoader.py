@@ -140,6 +140,7 @@ def edit_user(request):
         clear_and_update_data(request)
     else:
         add_to_exist_data(request)
+    excel.write_data_to_csv(request)
 
 def is_receipt(name):
     json_data = get_json_data(Name=name)[1]
